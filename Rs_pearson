@@ -1,0 +1,35 @@
+critics = {
+    'Lisa':{'Lady':2.5,'Snak':3.5,'Just':3.0,'Superman':3.5,'Dupree':2.5,'Night':3.0},
+    'Gene':{'Lady':3.0,'Snak':3.5,'Just':1.5,'Superman':5.0,'Dupree':3.5,'Night':3.0},
+    'Michael':{'Lady':2.5,'Snak':3.0,'Superman':3.5,'Night':4.0},
+    'Claudia':{'Snak':3.5,'Just':3.0,'Superman':4.0,'Dupree':2.5,'Night':4.5},
+    'Mick':{'Lady':3.0,'Snak':4.0,'Just':2.0,'Superman':3.0,'Dupree':2.0,'Night':3.0},
+    'Jack':{'Lady':3.0,'Snak':4.0,'Just':3.0,'Superman':5.0,'Dupree':3.5,'Night':3.0},
+    'Toby':{'Snak':4.5,'Superman':4.0,'Dupree':1.0}
+}
+
+from math import sqrt
+def sim_pearson(prefs,p1,p2):
+    si={}
+    for item in prefs[p1]:
+        if item in prefs[p2]:si[item]=1
+    n=len(si)
+
+    if n==0:return 1
+
+    sum1=sum([prefs[p1][it] for it in si])
+    sum2=sum([prefs[p2][it] for it in si])
+
+    sum1Sq=sum([pow(prefs[p1][it],2) for it in si])
+    sum2Sq=sum([pow(prefs[p2][it],2) for it in si])
+
+    pSum=sum([prefs[p1][it]*prefs[p2][it] for it in si])
+
+    num=pSum-(sum1*sum2/n)
+
+    den=sqrt((sum1Sq-pow(sum1,2)/n)*(sum2Sq-pow(sum2,2)/n))
+    if den==0:return 0
+    r=num/den
+    return r
+
+print(sim_pearson(critics,'Lisa','Gene'))
