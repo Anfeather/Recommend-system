@@ -1,0 +1,24 @@
+critics = {
+    'Lisa':{'Lady':2.5,'Snak':3.5,'Just':3.0,'Superman':3.5,'Dupree':2.5,'Night':3.0},
+    'Gene':{'Lady':3.0,'Snak':3.5,'Just':1.5,'Superman':5.0,'Dupree':3.5,'Night':3.0},
+    'Michael':{'Lady':2.5,'Snak':3.0,'Superman':3.5,'Night':4.0},
+    'Claudia':{'Snak':3.5,'Just':3.0,'Superman':4.0,'Dupree':2.5,'Night':4.5},
+    'Mick':{'Lady':3.0,'Snak':4.0,'Just':2.0,'Superman':3.0,'Dupree':2.0,'Night':3.0},
+    'Jack':{'Lady':3.0,'Snak':4.0,'Just':3.0,'Superman':5.0,'Dupree':3.5,'Night':3.0},
+    #'Toby':{'Snak':4.5,'Superman':4.0,'Dupree':1.0}
+    'Toby':{}
+}
+from math import sqrt
+def sim_distance(prefs,person1,person2):
+    si={}
+    for item in prefs[person1]:
+        if item in prefs[person2]:
+            si[item]=1
+    if len(si)==0:
+        return 0
+    sum_of_squares=sum([pow(prefs[person1][item]-prefs[person2][item],2) for item in prefs[person1] if item in prefs[person2]])
+    return 1/(1+sqrt(sum_of_squares))
+
+print (sim_distance(critics,'Lisa','Gene'))
+print (sim_distance(critics,'Lisa','Toby'))
+print (sim_distance(critics,'Lisa','Michael'))
