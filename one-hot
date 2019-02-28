@@ -1,0 +1,13 @@
+import numpy
+import scipy
+import sklearn
+
+from sklearn.preprocessing import OneHotEncoder
+
+enc=OneHotEncoder()
+
+enc.fit([[0,0,3],[1,1,0],[0,2,1],[1,0,2]])
+#一个4行3列的数组，即有4个样本，3个特征；
+print("特征取值个数："+str(enc.n_values_))#每个特征的取值个数（第一列共有2个取值，第二列有3个，第三列有4个）
+print("编码开始-结束下标："+str(enc.feature_indices_))#独热编码后每个特征开始和结束的下标；[0,2,5,9]中的四个数的间距是[2,3,4];相当于给出9位数,前2位截取给第一个特征,这2位数的开始下标是0结束下标是2;中间3位数截取给第二个特征,这3位数的开始下标接着上面即从2开始到5结束....
+print("example:"+str(enc.transform([[0, 1, 1]]).toarray()))#对新拿到的[0,1,1]做独热编码，即有第一列是[1,0],第二列是[0,1,0],第三列是[0,1,0,0]，所以最终拼在一起得到它的独热编码就是[1,0,0,1,0,0,1,0,0]
